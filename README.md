@@ -79,7 +79,7 @@ pixi shell -e humble-lerobot
 python -c "import crisp_gym"
 python3 scripts/record_lerobot_format_single_robot.py   --repo-id <insert_file_where_you_want_to_save_dataset>
 ```
-This is the actual recording script
+This is the actual recording script  
 When you run record_lerobot_format_single_robot.py it first asks follower robot namespace. Put empty namespace on that question by hitting enter. then it asks follower robot configuration, we used option 6 where we manually defined cameras and gripper. After entering 6, robot goes to home position.
 
 
