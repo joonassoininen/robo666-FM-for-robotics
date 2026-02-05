@@ -2,15 +2,18 @@
 
 This project utilizes and builds upon the following open-source frameworks: 
 
-* **LeRobot**: A state-of-the-art framework for deep learning and robotics by Hugging Face.
+* **LeRobot**: State-of-the-art Machine Learning for Real-World Robotics in Pytorch.
     * Source: [https://github.com/huggingface/lerobot](https://github.com/huggingface/lerobot)
     * License: Apache 2.0
+    * Authors: Cadene, Remi and Alibert, Simon and Soare, Alexander and Gallouedec, Quentin and Zouitine, Adil and Palma, Steven and Kooijmans, Pepijn and Aractingi, Michel and Shukor, Mustafa and Aubakirova, Dana and Russi, Martino and Capuano, Francesco and Pascal, Caroline and Choghari, Jade and Moss, Jess and Wolf, Thomas
+
 * **CRISP**: (CRISP - Compliant ROS2 Controllers for Learning-Based Manipulation Policies).
     * Includes: `crisp_py`, `crisp_gym`, and `crisp_controllers`.
     * Source:
          * crisp_py: [https://github.com/utiasDSL/crisp_py](https://github.com/utiasDSL/crisp_py)
          * crisp_gym: [https://github.com/utiasDSL/crisp_gym](https://github.com/utiasDSL/crisp_gym)
          * crisp_controllers: [https://github.com/utiasDSL/crisp_controllers](https://github.com/utiasDSL/crisp_controllers)
+      * Authors: Daniel San José Pro and Oliver Hausdörfer and Ralf Römer and Maximilian Dösch and Martin Schuck and Angela P. Schöllig
 
 ## Requirements
    operating system: Ubuntu 22.04  
