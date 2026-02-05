@@ -25,3 +25,9 @@ export ROS_DOMAIN_ID=100
 colcon build  
 source install/setup.bash  
 ros2 launch franka_gazebo robot.launch.py
+
+Open new terminal, source to the crisp_py folder of this project and past:
+```bash
+pixi shell -e humble  
+export PYTHONPATH=<local_path_to_the_src_folder:$PYTHONPATH
+python3 ~/robo666_project/src/crisp_py/examples/record_teleop.py
