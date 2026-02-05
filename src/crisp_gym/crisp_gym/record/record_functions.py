@@ -1,6 +1,9 @@
 """Record functions for teleoperation, policy deployment and more in a manipulator environment.
 
 This module should be used in conjunction with the `RecordingManager` class.
+
+This file is heavily modified by our group compared to the original crisp file.
+This is done because X-VLA produces different action compared to the SmolVLA. 
 """
 
 from __future__ import annotations
