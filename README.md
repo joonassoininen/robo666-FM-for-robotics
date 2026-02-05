@@ -18,15 +18,15 @@ This project utilizes and builds upon the following open-source frameworks:
    Python-version: <3.11
 
 ## Usage (reocrding)
-Open terminal and source to the root directory of this project and past:
+Open terminal and source to the root directory of this project and paste:
 ```bash
 source /opt/ros/humble/setup.bash  
 export ROS_DOMAIN_ID=100  
 colcon build  
 source install/setup.bash  
-ros2 launch franka_gazebo robot.launch.py```
+ros2 launch franka_gazebo robot.launch.py  
 
-Open new terminal, source to the crisp_py folder of this project and past:
+Open new terminal, source to the crisp_py folder of this project and paste:
 ```bash
 pixi shell -e humble  
 export PYTHONPATH=<insert_local_path_to_the_src_folder>:$PYTHONPATH
