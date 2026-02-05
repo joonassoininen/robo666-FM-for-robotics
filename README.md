@@ -13,8 +13,6 @@ This project utilizes and builds upon the following open-source frameworks:
          * crisp_controllers: [https://github.com/utiasDSL/crisp_controllers](https://github.com/utiasDSL/crisp_controllers)
 
 ## Requirements
-   operating system: Ubuntu 22.04
-   
-   ROS2-version: Humble
-   
+   operating system: Ubuntu 22.04  
+   ROS2-version: Humble  
    Python-version: <3.11
