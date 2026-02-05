@@ -17,6 +17,18 @@ This project utilizes and builds upon the following open-source frameworks:
    ROS2-version: Humble  
    Python-version: <3.11
 
+## Models and dataset
+
+Our trained models and dataset can be found from huggingface: 
+   **Models**:  
+   Trained X-VLA model: [https://huggingface.co/Rikuhaapala/xvla-franka-20000steps](https://huggingface.co/Rikuhaapala/xvla-franka-20000steps)  
+   Trained SmolVLA model: [https://huggingface.co/Joonassoininen/robo666_smolvla](https://huggingface.co/Joonassoininen/robo666_smolvla)  
+
+   **Datasets**:
+   X-VLA training data: [https://huggingface.co/datasets/Rikuhaapala/robo666_V2](https://huggingface.co/datasets/Rikuhaapala/robo666_V2)  
+   SmolVLA training data: [https://huggingface.co/datasets/Joonassoininen/robo666](https://huggingface.co/datasets/Joonassoininen/robo666)  
+   
+
 ## Usage (reocrding)
 Open terminal and source to the root directory of this project and paste:
 ```bash
