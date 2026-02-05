@@ -154,7 +154,7 @@ In the fourth terminal, you can start robot/model to perform the task by enterin
 ros2 topic pub --once /record_transition std_msgs/msg/String "{data: record}"
 ```
 ## Training  
-Information about how to train models can be found from huggingface lerobot page [https://huggingface.co/docs/lerobot/xvla](https://huggingface.co/docs/lerobot/xvla)
+Information about how to train different lerobot models can be found from huggingface lerobot page [https://huggingface.co/lerobot](https://huggingface.co/lerobot)
 
 
 
