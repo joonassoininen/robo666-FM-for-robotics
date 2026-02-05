@@ -120,7 +120,8 @@ In the fourth terminal, you can start robot/model to perform the task by enterin
 ```bash
 ros2 topic pub --once /record_transition std_msgs/msg/String "{data: record}"
 ```
-
+**Training
+Information about how to train models can be found from huggingface lerobot page [https://huggingface.co/docs/lerobot/xvla](https://huggingface.co/docs/lerobot/xvla)
 
 
 
