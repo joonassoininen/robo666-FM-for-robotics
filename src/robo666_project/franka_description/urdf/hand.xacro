@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="hand">
+  <!-- safety_distance: Minimum safety distance in [m] by which the collision volumes are expanded and which is enforced during robot motions -->
+  <xacro:property name="inertial_config" 
+    value="$(find franka_description)/urdf/common/inertial.yaml"/>
+  <xacro:property name="inertial" value="${xacro.load_yaml(inertial_config)}"/>
+
+    <xacro:macro name="inertial_props" params="name inertial:=^">
+    <xacro:unless value="${name in inertial}">${xacro.warning('No inertia properties defined for: '
+      + name)}</xacro:unless>
+    <xacro:if value="${name in inertial}">
+      <!-- Access inertia properties of link 'name' -->
+      <xacro:property name="inertial" value="${inertial[name]}" lazy_eval="false" />
+      <inertial>
+        <origin rpy="${inertial.origin.rpy}" xyz="${inertial.origin.xyz}" />
+        <mass value="${inertial.mass}" />
+        <xacro:property name="I" value="${inertial.inertia}" />
+        <inertia ixx="${I.xx}" ixy="${I.xy}" ixz="${I.xz}" iyy="${I.yy}" iyz="${I.yz}" izz="${I.zz}" />
+      </inertial>
+    </xacro:if>
+  </xacro:macro>
+  
+  
+  <xacro:macro name="hand" params="connected_to:='' description_pkg:='franka_description' ns:='' rpy:='0 0 0' xyz:='0 0 0' safety_distance:=0">
+    <xacro:unless value="${connected_to == ''}">
+      <joint name="${ns}_hand_joint" type="fixed">
+        <parent link="${connected_to}"/>
+        <child link="${ns}_hand"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+      </joint>
+    </xacro:unless>
+    <link name="${ns}_hand">
+      <visual>
+        <geometry>
+          <mesh filename="package://src/robo666_project/${description_pkg}/meshes/visual/hand.dae"/>
+        </geometry>
+      </visual>
+      
+      <collision>
+        <origin xyz="0 0 0.04" rpy="0 ${pi/2} ${pi/2}"/>
+        <geometry>
+          <cylinder radius="${0.00+safety_distance}" length="0.1"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 -0.05 0.04" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${0.00+safety_distance}"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0.05 0.04" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${0.00+safety_distance}"/>
+        </geometry>
+      </collision>
+      <!--
+      <collision>
+        <origin xyz="0 0 0.1" rpy="0 ${pi/2} ${pi/2}"/>
+        <geometry>
+          <cylinder radius="${0.00+safety_distance}" length="0.1"/>
+        </geometry>
+      </collision>
+      -->
+      <!--
+      <collision>
+        <origin xyz="0 -0.05 0.1" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${0.00+safety_distance}"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0.05 0.1" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${0.00+safety_distance}"/>
+        </geometry>
+      </collision>
+      -->
+      
+      <xacro:inertial_props name="hand"/>
+    </link>
+    <!-- Define the hand_tcp frame -->
+    <link name="${ns}_hand_tcp"/>
+    <joint name="${ns}_hand_tcp_joint" type="fixed">
+      <origin xyz="0 0 0.1034" rpy="0 0 0"/>
+      <parent link="${ns}_hand"/>
+      <child link="${ns}_hand_tcp"/>
+    </joint>
+    <link name="${ns}_leftfinger">
+      <visual>
+        <geometry>
+          <mesh filename="package://src/robo666_project/${description_pkg}/meshes/visual/finger.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0.005 0.02" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.067"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_props name="leftfinger"/>
+    </link>
+    <link name="${ns}_rightfinger">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
+        <geometry>
+          <mesh filename="package://src/robo666_project/${description_pkg}/meshes/visual/finger.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 -0.005 0.02" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.067"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_props name="rightfinger"/>
+    </link>
+    <joint name="${ns}_finger_joint1" type="prismatic">
+      <parent link="${ns}_hand"/>
+      <child link="${ns}_leftfinger"/>
+      <origin xyz="0 0 0.0584" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="200" lower="0.0" upper="0.04" velocity="0.2"/>
+    </joint>
+    <joint name="${ns}_finger_joint2" type="prismatic">
+      <parent link="${ns}_hand"/>
+      <child link="${ns}_rightfinger"/>
+      <origin xyz="0 0 0.0584" rpy="0 0 0"/>
+      <axis xyz="0 -1 0"/>
+      <limit effort="300" lower="0.0" upper="0.04" velocity="0.2"/>
+      <mimic joint="${ns}_finger_joint1"/>
+    </joint>
+    <gazebo reference="${ns}_leftfinger">
+    <surface>
+      <friction>
+        <ode>
+          <mu>2.0</mu>
+          <mu2>2.0</mu2>
+          <slip1>0.002</slip1>
+          <slip2>0.002</slip2>
+        </ode>
+      </friction>
+      <contact>
+        <ode>
+          <kp>1e6</kp>
+          <kd>10</kd>
+        </ode>
+      </contact>
+    </surface>
+  </gazebo>
+
+  <gazebo reference="${ns}_rightfinger">
+    <surface>
+      <friction>
+        <ode>
+          <mu>3.0</mu>
+          <mu2>3.0</mu2>
+          <slip1>0.0</slip1>
+          <slip2>0.0</slip2>
+        </ode>
+      </friction>
+      <contact>
+        <ode>
+          <kp>1e6</kp>
+          <kd>10</kd>
+        </ode>
+      </contact>
+    </surface>
+  </gazebo>
+  
+  <link name="${ns}_hand_camera">
+<visual>
+<geometry>
+<box size="0.025 0.025 0.025"/>
+</geometry>
+<material name="black"/>
+</visual>
+ 
+  <collision>
+<geometry>
+<box size="0.025 0.025 0.025"/>
+</geometry>
+</collision>
+ 
+  <inertial>
+<mass value="0.05"/>
+<inertia ixx="1e-5" iyy="1e-5" izz="1e-5"
+             ixy="0" ixz="0" iyz="0"/>
+</inertial>
+
+</link>
+ 
+ 
+<joint name="${ns}_hand_camera_joint" type="fixed">
+<!-- Adjust mounting here -->
+<origin xyz="0.042 0 -0.055" rpy="${-pi} ${-pi/1.5} 0"/>
+<parent link="${ns}_hand_tcp"/>
+<child link="${ns}_hand_camera"/>
+</joint>
+ 
+<!-- Optical frame (ROS camera convention) -->
+<link name="${ns}_hand_camera_optical"/>
+ 
+<joint name="${ns}_hand_camera_optical_joint" type="fixed">
+<parent link="${ns}_hand_camera"/>
+<child link="${ns}_hand_camera_optical"/>
+<!-- Z forward, X right, Y down -->
+<origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+</joint>
+<gazebo reference="${ns}_hand_camera">
+<sensor name="hand_camera" type="camera">
+<topic>hand_camera</topic>
+<always_on>true</always_on>
+<update_rate>40</update_rate>
+ 
+    <camera>
+<horizontal_fov>1.4</horizontal_fov>
+<image>
+<width>640</width>
+<height>480</height>
+<format>R8G8B8</format>
+</image>
+<clip>
+<near>0.01</near>
+<far>5.0</far>
+</clip>
+</camera>
+</sensor>
+</gazebo>
+  </xacro:macro>
+</robot>

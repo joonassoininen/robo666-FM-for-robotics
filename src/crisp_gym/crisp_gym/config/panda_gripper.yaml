@@ -1,0 +1,7 @@
+joint_state_topic: /joint_states
+command_topic: /gripper_effort_controller/commands
+
+min_value: 0.0         
+max_value: 0.04        
+
+index: 6

@@ -1,0 +1,24 @@
+[project]
+name = "crisp-controllers"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.15",
+    "mkdoxy>=1.2.7",
+]
+
+[tool.pixi.project]
+name = "crisp-controllers"
+version = "0.1.0"
+description = "CRISP controllers project"
+channels = ["conda-forge"]
+
+[tool.pixi.dependencies]
+python = ">=3.11"
+crisp_gym = ">=2.0.0"
+
+[tool.pixi.tasks]
+check_config = "python scripts/check_config.py"

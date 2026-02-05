@@ -1,0 +1,69 @@
+devel/
+install/
+build/
+logs/
+bin/
+lib/
+*.bag
+*.stl
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+.env
+.envrc
+*.sqlite3
+*.log
+
+# --- C++ ---
+*.o
+*.obj
+*.so
+*.a
+*.exe
+*.out
+*.dll
+*.lib
+*.pdb
+*.dylib
+cmake-build-*/
+
+# --- IDEs and editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.user
+*.workspace
+*.code-workspace
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
+
+*.pdf
+*.gv
+
+**/docs/
+**/media/
+**/tests/
+.pixi/
+
+# --- Keep configuration and description files ---
+# (We *want* to keep these in version control)
+!*.xml
+!*.yaml
+!*.yml
+!*.urdf
+!*.xacro
+!*.launch
+!*.rviz
+!*.config

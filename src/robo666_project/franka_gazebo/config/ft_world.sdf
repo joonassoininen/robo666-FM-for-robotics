@@ -1,0 +1,518 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="ft_world">
+    <physics name="1ms" type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics">
+    </plugin>
+    <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands">
+    </plugin>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster">
+    </plugin>
+    <plugin filename="ignition-gazebo-contact-system" name="ignition::gazebo::systems::Contact">
+    </plugin>
+    <plugin filename="ignition-gazebo-forcetorque-system" name="ignition::gazebo::systems::ForceTorque">
+    <sensor name="panda_ft_sensor_joint"/>
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    
+    <gui fullscreen="0">
+
+      <!-- 3D scene -->
+      <plugin filename="MinimalScene" name="3D View">
+        <ignition-gui>
+          <title>3D View</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="string" key="state">docked</property>
+        </ignition-gui>
+
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+        <camera_clip>
+          <near>0.25</near>
+          <far>25000</far>
+        </camera_clip>
+      </plugin>
+
+      <!-- Plugins that add functionality to the scene -->
+      <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+        <ignition-gui>
+          <property key="state" type="string">floating</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="GzSceneManager" name="Scene Manager">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="InteractiveViewControl" name="Interactive view control">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="CameraTracking" name="Camera Tracking">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="MarkerManager" name="Marker manager">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="SelectEntities" name="Select Entities">
+        <ignition-gui>
+          <anchors target="Select entities">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+      <plugin filename="VisualizationCapabilities" name="Visualization Capabilities">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+
+      <plugin filename="Spawn" name="Spawn Entities">
+        <ignition-gui>
+          <anchors target="Select entities">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- World control -->
+      <plugin filename="WorldControl" name="World control">
+        <ignition-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="width">121</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+        <use_event>true</use_event>
+
+      </plugin>
+
+      <!-- Image Display Plugins for visualization -->
+      <plugin filename="ImageDisplay" name="Image Display">
+        <ignition-gui>
+        </ignition-gui>
+        <topic>hand_camera</topic>
+      </plugin>
+      
+      <plugin filename="ImageDisplay" name="Table Camera View">
+        <ignition-gui>
+        <property key="state" type="string">floating</property>
+        <property key="width" type="double">400</property>
+        <property key="height" type="double">300</property>
+        <property key="showTitleBar" type="bool">true</property>
+      </ignition-gui>
+      <topic>table_camera</topic>
+    </plugin>
+
+
+      <!-- World statistics -->
+      <plugin filename="WorldStats" name="World stats">
+        <ignition-gui>
+          <title>World stats</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">110</property>
+          <property type="double" key="width">290</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <sim_time>true</sim_time>
+        <real_time>true</real_time>
+        <real_time_factor>true</real_time_factor>
+        <iterations>true</iterations>
+      </plugin>
+
+      <!-- Insert simple shapes -->
+      <plugin filename="Shapes" name="Shapes">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">0</property>
+          <property key="y" type="double">0</property>
+          <property key="width" type="double">250</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#666666</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- Insert lights -->
+      <plugin filename="Lights" name="Lights">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">250</property>
+          <property key="y" type="double">0</property>
+          <property key="width" type="double">150</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#666666</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- Translate / rotate -->
+      <plugin filename="TransformControl" name="Transform control">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">0</property>
+          <property key="y" type="double">50</property>
+          <property key="width" type="double">250</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#777777</property>
+        </ignition-gui>
+
+        <!-- disable legacy features used to connect this plugin to GzScene3D -->
+        <legacy>false</legacy>
+      </plugin>
+
+      <!-- Screenshot -->
+      <plugin filename="Screenshot" name="Screenshot">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">250</property>
+          <property key="y" type="double">50</property>
+          <property key="width" type="double">50</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#777777</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- Video recorder -->
+      <plugin filename="VideoRecorder" name="VideoRecorder">
+        <ignition-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">300</property>
+          <property key="y" type="double">50</property>
+          <property key="width" type="double">50</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#777777</property>
+        </ignition-gui>
+
+        <record_video>
+          <use_sim_time>true</use_sim_time>
+          <lockstep>true</lockstep>
+          <bitrate>4000000</bitrate>
+        </record_video>
+
+        <!-- disable legacy features used to connect this plugin to GzScene3D -->
+        <legacy>false</legacy>
+      </plugin>
+
+      <!-- Inspector -->
+      <plugin filename="ComponentInspector" name="Component inspector">
+        <ignition-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </ignition-gui>
+      </plugin>
+
+      <!-- Entity tree -->
+      <plugin filename="EntityTree" name="Entity tree">
+        <ignition-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </ignition-gui>
+      </plugin>
+
+    </gui>
+
+
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <visual>false</visual>
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name='ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    
+    <model name='table1'>
+    <static>true</static>
+    <link name='table1'>
+      <pose frame=''>0.3 0 0 0 0 0</pose>
+      <inertial>
+        <pose frame=''>0 0.04617 0.38 0 -0 0</pose>
+        <mass>35.4321</mass>
+        <inertia>
+          <ixx>1.73083</ixx>
+          <ixy>2.01582e-11</ixy>
+          <ixz>2.78594e-13</ixz>
+          <iyy>5.32936</iyy>
+          <iyz>4.32952e-13</iyz>
+          <izz>3.81098</izz>
+        </inertia>
+      </inertial>
+      <collision name='table_collision'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1.2</scale>
+            <uri>file:///home/gpupc/user_files/robo666_project/robo666_project/src/robo666_project/table1/meshes/table1.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='table_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1.2</scale>
+            <uri>file:///home/gpupc/user_files/robo666_project/robo666_project/src/robo666_project/table1/meshes/table1.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+  
+  
+  
+  <model name="cube1">
+  <pose>0.57 0 1.05 0 0 0</pose> 
+  <link name="link">
+  <inertial>
+      <mass>0.05</mass> <!-- 50 grams -->
+      <inertia>
+        <ixx>1e-5</ixx>
+        <ixy>0</ixy>
+        <ixz>0</ixz>
+        <iyy>1e-5</iyy>
+        <iyz>0</iyz>
+        <izz>1e-5</izz>
+      </inertia>
+    </inertial>
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>0.04 0.04 0.04</size>
+        </box>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>3.0</mu>
+            <mu2>3.0</mu2>
+            <slip1>0.0</slip1>
+            <slip2>0.0</slip2>
+          </ode>
+        </friction>
+        <bounce>
+          <restitution_coefficient>0.0</restitution_coefficient>
+          <threshold>1e6</threshold>
+        </bounce>
+      </surface>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <box>
+          <size>0.04 0.04 0.04</size>
+        </box>
+      </geometry>
+      <material>
+  	<ambient>0 1 0 1</ambient>     
+ 	<diffuse>0 1 0 1</diffuse>     
+  	<specular>0.1 0.1 0.1 1</specular>
+  	<emissive>0 0.2 0 1</emissive> 
+</material>
+    </visual>
+  </link>
+</model>
+
+<model name="plate">
+  <pose>0.57 0.25 1.05 0 0 0</pose> 
+  <link name="link">
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>0.1 0.1 0.01</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <box>
+          <size>0.1 0.1 0.01</size>
+        </box>
+      </geometry>
+      
+      <material>
+        <ambient>1 0 0 1</ambient>   
+        <diffuse>1 0 0 1</diffuse>
+        <emissive>0.2 0 0 1</emissive> 
+      </material>
+      
+    </visual>
+  </link>
+</model>
+
+<model name="table_camera">
+      <static>true</static>
+      
+      <pose>1.3030 -1.099 1.9927 0 0.5586 2.1012</pose>
+
+      <link name="camera_link">
+        <!-- Pieni näkyvä boksi, jotta näet kameran 3D-näkymässä -->
+        <visual name="camera_visual">
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <!-- 5 cm kuutio -->
+              <size>0.05 0.05 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.1 0.1 0.8 1</ambient>
+            <diffuse>0.1 0.1 0.8 1</diffuse>
+            <specular>0.3 0.3 0.3 1</specular>
+          </material>
+        </visual>
+        <sensor name="table_rgb_camera" type="camera">
+          <topic>table_camera</topic>
+          <always_on>1</always_on>
+          <visualize>true</visualize>
+          <update_rate>40</update_rate>
+          <camera>
+            <horizontal_fov>1.0</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>5.0</far>
+            </clip>
+          </camera>
+        </sensor>
+      </link>
+    </model>
+    
+  </world>
+</sdf>

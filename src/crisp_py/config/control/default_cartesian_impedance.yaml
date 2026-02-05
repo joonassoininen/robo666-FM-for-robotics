@@ -1,0 +1,34 @@
+limit_error: false
+limit_torques: false
+
+max_delta_tau: 2.0
+nullspace.stiffness: 450.0
+
+stop_commands: false
+
+task.k_pos_x: 2000.0
+task.k_pos_y: 2000.0
+task.k_pos_z: 2000.0
+task.k_rot_x: 3000.0
+task.k_rot_y: 3000.0
+task.k_rot_z: 3000.0
+
+task.d_pos_x: -1.0
+task.d_pos_y: -1.0
+task.d_pos_z: -1.0
+task.d_rot_x: -1.0
+task.d_rot_y: -1.0
+task.d_rot_z: -1.0
+
+task.error_clip.rx: 0.005
+task.error_clip.ry: 0.005
+task.error_clip.rz: 0.005
+task.error_clip.x: 0.006
+task.error_clip.y: 0.006
+task.error_clip.z: 0.006
+
+
+use_friction: false
+use_gravity_compensation: false
+use_local_jacobian: true
+use_operational_space: true

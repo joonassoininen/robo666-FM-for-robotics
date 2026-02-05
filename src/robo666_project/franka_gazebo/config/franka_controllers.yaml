@@ -1,0 +1,111 @@
+
+controller_manager:
+  ros__parameters:
+    update_rate: 180 # Hz
+
+    joint_trajectory_controller:
+        type: joint_trajectory_controller/JointTrajectoryController
+
+    pose_broadcaster:
+        type: crisp_controllers/PoseBroadcaster
+
+    cartesian_impedance_controller:
+        type: crisp_controllers/CartesianController
+        
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    
+    gripper_effort_controller:
+      type: forward_command_controller/ForwardCommandController
+
+joint_trajectory_controller:
+  ros__parameters:
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    gains:
+      panda_joint1: { p: 2000., d: 30., i: 0., i_clamp: 1. }
+      panda_joint2: { p: 2000., d: 30., i: 0., i_clamp: 1. }
+      panda_joint3: { p: 2000., d: 30., i: 0., i_clamp: 1. }
+      panda_joint4: { p: 2000., d: 30., i: 0., i_clamp: 1. }
+      panda_joint5: { p: 1500., d: 10., i: 0., i_clamp: 1. }
+      panda_joint6: { p: 750., d: 10., i: 0., i_clamp: 1. }
+      panda_joint7: { p: 250., d: 5., i: 0., i_clamp: 1. }
+pose_broadcaster:
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+
+    end_effector_frame: panda_hand
+    base_frame: base
+
+cartesian_impedance_controller:
+  ros__parameters:
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+
+    end_effector_frame: panda_hand
+    base_frame: base
+
+    task:
+      k_pos_x: 800.0
+      k_pos_y: 800.0
+      k_pos_z: 800.0
+      k_rot_x: 60.0
+      k_rot_y: 60.0
+      k_rot_z: 60.0
+
+    nullspace: 
+      stiffness: 0.0
+
+    use_friction: false
+    use_coriolis_compensation: true
+    use_local_jacobian: false
+
+twist_broadcaster:
+    ros__parameters:
+      joints:
+        - panda_joint1
+        - panda_joint2
+        - panda_joint3
+        - panda_joint4
+        - panda_joint5
+        - panda_joint6
+        - panda_joint7
+
+      end_effector_frame: panda_hand
+      base_frame: base
+
+gripper_effort_controller:
+  ros__parameters:
+      joints:
+        - panda_finger_joint1
+        - panda_finger_joint2
+      interface_name: effort
