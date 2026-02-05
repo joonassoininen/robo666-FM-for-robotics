@@ -8,6 +8,6 @@ This project utilizes and builds upon the following open-source frameworks:
 * **CRISP**: (CRISP - Compliant ROS2 Controllers for Learning-Based Manipulation Policies).
     * Includes: `crisp_py`, `crisp_gym`, and `crisp_controllers`.
     * Source:
-         crisp_py: [https://github.com/utiasDSL/crisp_py](https://github.com/utiasDSL/crisp_py)
-         crisp_gym: [https://github.com/utiasDSL/crisp_gym](https://github.com/utiasDSL/crisp_gym)
-         crisp_controllers [https://github.com/utiasDSL/crisp_controllers](https://github.com/utiasDSL/crisp_controllers)
+         * crisp_py: [https://github.com/utiasDSL/crisp_py](https://github.com/utiasDSL/crisp_py)
+         * crisp_gym: [https://github.com/utiasDSL/crisp_gym](https://github.com/utiasDSL/crisp_gym)
+         * crisp_controllers [https://github.com/utiasDSL/crisp_controllers](https://github.com/utiasDSL/crisp_controllers)
