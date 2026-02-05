@@ -50,12 +50,17 @@ colcon build
 source install/setup.bash  
 ros2 launch franka_gazebo robot.launch.py
 ```
+This launches the gazebo simulation
+
+
 Open a second terminal and paste:
 ```bash
 source /opt/ros/humble/setup.bash  
 export ROS_DOMAIN_ID=100
 ros2 run joy joy_node
 ```
+This activates the ros2 joy node, and playstation controller inputs can be published to ros2
+
 
 Open a third terminal, source to the crisp_py folder of this project and paste:
 ```bash
@@ -63,6 +68,9 @@ pixi shell -e humble
 export PYTHONPATH=<insert_local_path_to_the_src_folder>:$PYTHONPATH
 python3 ~/robo666_project/src/crisp_py/examples/record_teleop.py  
 ```
+This launches the teleoperation script
+
+
 Open a fourth terminal, source to the crisp_gym folder of this project and paste: 
 ```bash
 source scripts/configure.sh 
@@ -71,7 +79,9 @@ pixi shell -e humble-lerobot
 python -c "import crisp_gym"
 python3 scripts/record_lerobot_format_single_robot.py   --repo-id <insert_file_where_you_want_to_save_dataset>
 ```
+This is the actual recording script
 When you run record_lerobot_format_single_robot.py it first asks follower robot namespace. Put empty namespace on that question by hitting enter. then it asks follower robot configuration, we used option 6 where we manually defined cameras and gripper. After entering 6, robot goes to home position.
+
 
 Then open a fifth terminal, source to the crisp_py folder of this project and paste: 
 ```bash
@@ -79,6 +89,9 @@ pixi shell -e humble
 export PYTHONPATH=<insert_local_path_to_the_src_folder>:$PYTHONPATH
 ros2 control switch_controllers --activate gripper_effort_controller --strict
 ```
+This activates the gripper effort controller
+
+
 Then open a sixth terminal and paste: 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -108,6 +121,8 @@ colcon build
 source install/setup.bash  
 ros2 launch franka_gazebo robot.launch.py
 ```
+This launches the gazebo simulation
+
 
 Open a second terminal, source to the crisp_gym folder of this project and paste: 
 ```bash
@@ -117,12 +132,18 @@ pixi shell -e humble-lerobot
 python -c "import crisp_gym"
 python3 scripts/deploy_policy.py \ --path Rikuhaapala/xvla-franka-20000steps \ --repo-id <insert_repo_where_you_want_to_store_evaluation>
 ```
+This launches the deploy policy script
+
+
 Open a third terminal and paste, source to the crisp_py folder of this project and paste:
 ```bash
 pixi shell -e humble  
 export PYTHONPATH=<insert_local_path_to_the_src_folder>:$PYTHONPATH
 ros2 control switch_controllers --activate gripper_effort_controller --strict
 ```
+This activates the gripper effort controller
+
+
 Open a fourth terminal and paste: 
 ```bash
 source /opt/ros/humble/setup.bash
