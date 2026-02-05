@@ -24,7 +24,7 @@ source /opt/ros/humble/setup.bash
 export ROS_DOMAIN_ID=100  
 colcon build  
 source install/setup.bash  
-ros2 launch franka_gazebo robot.launch.py
+ros2 launch franka_gazebo robot.launch.py```
 
 Open new terminal, source to the crisp_py folder of this project and past:
 ```bash
