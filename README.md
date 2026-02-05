@@ -74,3 +74,41 @@ ros2 topic pub --once /record_transition std_msgs/msg/String "{data: delete}"
 ```
 After you press record you can control the robot and crisp_gym saves robot and camera data. 
 
+## Usage (deploy policy)
+
+Open terminal and source to the root directory of this project and paste:
+```bash
+source /opt/ros/humble/setup.bash  
+export ROS_DOMAIN_ID=100  
+colcon build  
+source install/setup.bash  
+ros2 launch franka_gazebo robot.launch.py
+```
+
+Open a second terminal, source to the crisp_gym folder of this project and paste: 
+```bash
+source scripts/configure.sh 
+pixi install
+pixi shell -e humble-lerobot
+python -c "import crisp_gym"
+python3 scripts/deploy_policy.py \ --path Rikuhaapala/xvla-franka-20000steps \ --repo-id <insert_repo_where_you_want_to_store_evaluation>
+```
+Open a third terminal and paste, source to the crisp_py folder of this project and paste:
+```bash
+pixi shell -e humble  
+export PYTHONPATH=<insert_local_path_to_the_src_folder>:$PYTHONPATH
+ros2 control switch_controllers --activate gripper_effort_controller --strict
+```
+Open a fourth terminal and paste: 
+```bash
+source /opt/ros/humble/setup.bash
+export ROS_DOMAIN_ID=100
+```
+In the fourth terminal, you can start robot/model to perform the task by entering: 
+```bash
+ros2 topic pub --once /record_transition std_msgs/msg/String "{data: record}"
+```
+
+
+
+
