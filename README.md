@@ -18,3 +18,4 @@ This project utilizes and builds upon the following open-source frameworks:
    Python-version: <3.11
 
 ## Usage (reocrding)
+Open terminal and source
