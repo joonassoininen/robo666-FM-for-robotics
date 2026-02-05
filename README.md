@@ -18,4 +18,10 @@ This project utilizes and builds upon the following open-source frameworks:
    Python-version: <3.11
 
 ## Usage (reocrding)
-Open terminal and source
+Open terminal and source to the root directory of this project and past:
+'''bash
+source /opt/ros/humble/setup.bash  
+export ROS_DOMAIN_ID=100  
+colcon build  
+source install/setup.bash  
+ros2 launch franka_gazebo robot.launch.py
