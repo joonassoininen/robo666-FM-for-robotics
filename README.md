@@ -19,7 +19,7 @@ This project utilizes and builds upon the following open-source frameworks:
 
 ## Usage (reocrding)
 Open terminal and source to the root directory of this project and past:
-``bash
+```bash
 source /opt/ros/humble/setup.bash  
 export ROS_DOMAIN_ID=100  
 colcon build  
